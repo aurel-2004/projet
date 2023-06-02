@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <title>Info Utilisateur</title>
+</head>
+
+<body>
+  <header>
+    <div class="logo">liste_utilisateurs</div>
+    <nav>
+      <ul>
+        <li><a href="#">Accueil</a></li>
+        <li><a href="#">A propos</a></li>
+      </ul>
+    </nav>
+  </header>
+
+    <h1>Liste d'une base de donnée</h1>
+    <P>Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipit optio aperiam distinctio, autem molestias voluptatem doloremque illum eius laudantium repellendus rem quas aliquam nam qui placeat animi unde expedita inventore!</P>
+    <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Temporibus hic natus dolores dolore officia! Vitae aut autem quidem voluptatum optio recusandae numquam rerum impedit, laboriosam sunt voluptates doloremque, alias saepe?</p>
+    <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Molestias voluptate illum similique eaque assumenda delectus ex eos repellendus temporibus, debitis nulla adipisci facere. Asperiores non amet aspernatur, ullam nisi earum.</p>
+    <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quidem fugiat laudantium ad molestias dolore, rem vel suscipit nisi fuga natus ducimus, aperiam incidunt voluptatem doloribus provident? Saepe laborum neque distinctio.</p>
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus, sed autem culpa placeat provident eius dolores harum esse excepturi repellat, quo consequatur doloremque molestiae ad? Architecto expedita optio ullam reprehenderit?</p>
+    <div class="center">
+      <!-- Ici, la liste des utilisateurs sera générée dynamiquement avec JavaScript -->
+    </div>
+    <div class="right">
+      <p></p>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-left">Mouidy Mouidi Maurice Aurel <br> MAMBOUNDOU MOULOUNGUI <br>MOMBO Wenceslas Godwin</div>
+    <div class="footer-right"></div>
+  </footer>
+
+  <script>
+    
+    // Fonction pour récupérer les données JSON de l'API
+    function chargerUtilisateurs() {
+      var donnée = new Request();
+      var url = 'https://jsonplaceholder.typicode.com/users';
+
+      donnée.onreadystatechange = function() {
+        if (donnée.readyState === 4 && donnée.status === 200) {
+          var utilisateurs = JSON.parse(donnée.responseText);
+
+          // Parcourir la liste des utilisateurs et toutes les informations
+          utilisateurs.forEach(function(utilisateur) {
+            var utilisateurDiv = document.createElement('div');
+            utilisateurDiv.className = 'utilisateur';
+
+            var nomPrenom = document.createElement('h3');
+            nomPrenom.textContent = utilisateur.name + ' ' + utilisateur.username;
+
+            var email = document.createElement('p');
+            email.textContent = 'Email: ' + utilisateur.email;
+
+            var telephone = document.createElement('p');
+            telephone.textContent = 'Téléphone: ' + utilisateur.phone;
+
+            
+            var rue = document.createElement('p');
+            rue.textContent = 'Rue: ' + utilisateur.address.street;
+
+            var rue = document.createElement('p');
+            rue.textContent = 'Rue: ' + utilisateur.address.street;
+
+            var ville = document.createElement('p');
+            ville.textContent = 'Ville: ' + utilisateur.address.city;
+
+
+            utilisateurDiv.appendChild(nomPrenom);
+            utilisateurDiv.appendChild(email);
+            utilisateurDiv.appendChild(telephone);
+            utilisateurDiv.appendChild(rue);
+            utilisateurDiv.appendChild(ville);
+
+
+            document.getElementById('utilisateurs').appendChild(utilisateurDiv);
+          });
+        }
+      };
+
+      donnée.open('GET', url, true);
+      donnée.send();
+    }
+
+    // Appeler la fonction pour charger les utilisateurs lors du chargement de la page
+    window.onload = chargerUtilisateurs;
+
+    // Récupérer les utilisateurs depuis l'API 
+fetch('https://jsonplaceholder.typicode.com/users')
+  .then(response => response.json())
+  .then(users => {
+    // Générer la liste des utilisateurs dans la div center
+    const centerDiv = document.querySelector('.center');
+    users.forEach(user => {
+      const userDiv = document.createElement('div');
+      userDiv.classList.add('user');
+
+      const name = document.createElement('h2');
+      name.textContent = user.name;
+      userDiv.appendChild(name);
+
+      const email = document.createElement('p');
+      email.textContent = `Email: ${user.email}`;
+      userDiv.appendChild(email);
+
+      const address = document.createElement('p');
+      address.textContent = `Adresse: ${user.address.street}, ${user.address.suite}, ${user.address.city}, ${user.address.zipcode}`;
+      userDiv.appendChild(address);
+
+      const phone = document.createElement('p');
+      phone.textContent = `Téléphone: ${user.phone}`;
+      userDiv.appendChild(phone);
+
+      centerDiv.appendChild(userDiv);
+    });
+  });
+
+  </script>
+</body>
+</html>
